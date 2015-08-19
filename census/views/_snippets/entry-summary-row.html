@@ -54,8 +54,9 @@
       <div class="entry-year label {{ badgeClass}}" title="{{ entry.updatedAt|dateformat }} ({{ gettext("Submitted by") }} {{ entry.Submitter.fullName() }} {{ gettext("and reviewed by") }} {{ entry.Submitter.fullName() }})">{{entry.year}}</div>
     {% endif %}
     </td>
-    {% if entry and entry.answers.url %}
-      <td class="recordurl"><a href="{{entry.answers.url}}" title="{{entry.answers.url}}" target="_blank">{{ entry.answers.url }}</a></td>
+    {% if entry and entry.answers.value %}
+      {% set content = entry.answers.value | urlize | replace('\n', '<br>') | replace ('\"', '\'') | wordwrap(100, '\n', true) %}
+      <td class="recordurl">{{content}}</td>
     {% else %}
       <td><!-- No URL given --></td>
     {% endif %}
