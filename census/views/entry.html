@@ -21,8 +21,14 @@
 
 <p>{{dataset.description|marked}}</p>
 
-<h3>{{gettext("Data Location")}}</h3>
-<a href="{{entry.answers.url}}">{{entry.answers.url}}</a>
+<h3>{{gettext("Details")}}</h3>
+{% if dataset.id == 'website' or dataset.id == 'paia' or dataset.id == 'sda_url'%}
+  <a href="{{entry.answers.value}}">{{entry.answers.value}}</a>
+{% elif dataset.id == 'information_officer_email' %}
+  <a href="mailto:{{entry.answers.value}}">{{entry.answers.value}}</a>
+{% else %}
+  <p>{{entry.answers.value}}</p>
+{% endif %}
 
 <h3>{{gettext("Comments")}}</h3>
 <p>{{entry.details|urlize|marked}}</p>
@@ -78,8 +84,6 @@
 
 <h3>{{gettext("Details")}}</h3>
 <table class="table table-striped yntable">
-  <tr><td>{{gettext("Date the data became available")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.answers.dateavailable %}{{ entry.answers.dateavailable }}{% else %}{{gettext("Unknown")}}{% endif %}</td></tr>
-  <tr><td>{{gettext("Format of data")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.answers.format %}{{ entry.answers.format }}{% else %}{{gettext("Unknown")}}{% endif %}</td></tr>
   <tr><td>{{gettext("Reviewer")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.Reviewer %}{{entry.Reviewer.fullName()}}{% endif %}</td></tr>
   <tr><td>{{gettext("Submitters")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.Submitter %}{{entry.Submitter.fullName()}}{% endif %}</td></tr>
   <tr><td>{{gettext("Last modified")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.createdAt %}{{ entry.createdAt }}{% else %}{{gettext("Unknown")}}{% endif %}</td></tr>
