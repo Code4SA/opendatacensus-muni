@@ -49,6 +49,7 @@ var validatorOptions = {
     }
   }
 };
+var FileStore = require('session-file-store')(session);
 
 app.set('config', config);
 app.set('port', config.get('appconfig:port'));
@@ -80,6 +81,7 @@ app.use([
   bodyParser.json(),
   methodOverride(),
   session({
+    store: new FileStore(),
     secret: sessionSecret,
     resave: true,
     saveUninitialized: true,
