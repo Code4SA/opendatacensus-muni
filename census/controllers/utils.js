@@ -15,57 +15,12 @@ var makeChoiceValidator = function(param) {
 var validators = {
   exists: {
     validate: makeChoiceValidator("exists"),
-    require: ["digital", "public", "uptodate"]
+    require: ["value"],
   },
-  digital: {
-    validate: makeChoiceValidator("digital"),
-    require: ["online", "machinereadable", "bulk"],
-    expectFalse: ["online", "machinereadable", "bulk"]
-  },
-  public: {
-    validate: makeChoiceValidator("public"),
-    require: ["free"],
-    expectFalse: ["free", "online", "openlicense", "bulk"]
-  },
-  free: {
-    validate: makeChoiceValidator("free"),
-    require: ["openlicense"],
-    expectFalse: ["openlicense"]
-  },
-  online: {
-    validate: makeChoiceValidator("online"),
-    require: ["url"]
-  },
-  openlicense: {
-    validate: makeChoiceValidator("openlicense"),
-    require: ["licenseurl"]
-  },
-  machinereadable: {
-    validate: makeChoiceValidator("machinereadable"),
-    require: ["format"]
-  },
-  bulk: {
-    validate: makeChoiceValidator("bulk")
-  },
-  uptodate: {
-    validate: makeChoiceValidator("uptodate")
-  },
-  format: {
+  value: {
     type: "string",
     validate: function(req) {
-      req.checkBody("format", "You must specify the data format").notEmpty();
-    }
-  },
-  url: {
-    type: "string",
-    validate: function(req) {
-      req.checkBody("url", "You must specify a valid URL").isURL();
-    }
-  },
-  licenseurl: {
-    type: "string",
-    validate: function(req) {
-      req.checkBody("licenseurl", "You must specify a valid URL").isURL();
+      req.checkBody("value", "Please provide additional detail.").notEmpty();
     }
   }
 };

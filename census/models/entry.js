@@ -85,19 +85,6 @@ module.exports = function (sequelize, DataTypes) {
   },
   {
     instanceMethods: {
-      isOpen: function() {
-
-        if (this.answers.exists === true && this.answers.openlicense === true &&
-            this.answers.public === true && this.answers.machinereadable === true ) {
-
-          return true;
-
-        } else {
-
-          return false;
-
-        }
-      },
       yCount: function(questions) {
 
         var scores = [],
