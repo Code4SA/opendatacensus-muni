@@ -53,7 +53,7 @@ var validators = {
   format: {
     type: "string",
     validate: function(req) {
-      req.checkBody("machinereadable", "You must specify the data format").notEmpty();
+      req.checkBody("format", "You must specify the data format").notEmpty();
     }
   },
   url: {
@@ -180,8 +180,8 @@ var datasetMapper = function(data) {
 var questionMapper = function(data) {
   var dependants = null;
   if(data.dependants){ dependants = data.dependants.split(FIELD_SPLITTER); }
-  return _.merge(data, {id: data.id.toLowerCase(), dependants: dependants,
-                        score: data.score || 0, order: data.order || 100});
+  return _.defaults({id: data.id.toLowerCase(), dependants: dependants,
+                     score: data.score || 0, order: data.order || 100}, data);
 };
 
 
