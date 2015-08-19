@@ -2,45 +2,9 @@ jQuery(document).ready(function($) {
 
   var fields = {
     exists: {
-      require: ["digital", "public", "uptodate"]
+      require: ["value"]
     },
-    digital: {
-      require: ["online", "machinereadable", "bulk"]
-    },
-    public: {
-      require: ["free"],
-      optional: ["publisher", "officialtitle"],
-      expectFalse: ["online", "bulk"]
-    },
-    free: {
-      require: ["openlicense"]
-    },
-    online: {
-      require: ["url"]
-    },
-    openlicense: {
-      require: ["licenseurl"]
-    },
-    machinereadable: {
-      require: ["format"]
-    },
-    bulk: {
-    },
-    uptodate: {
-    },
-    publisher: {
-      type: "dependant"
-    },
-    officialtitle: {
-      type: "dependant"
-    },
-    format: {
-      type: "dependant"
-    },
-    url: {
-      type: "dependant"
-    },
-    licenseurl: {
+    value: {
       type: "dependant"
     }
   };
