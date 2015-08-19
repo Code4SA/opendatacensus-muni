@@ -82,7 +82,7 @@ var processStats = function(data, options) {
 
   if (Array.isArray(data.entries)) {
     data.stats.currentEntryCount = data.entries.length;
-    data.stats.currentEntryOpenCount = _.filter(data.entries, function(e) { return e.isOpen() === true; }).length;
+    data.stats.currentEntryOpenCount = 0; // _.filter(data.entries, function(e) { return e.isOpen() === true; }).length;
     data.stats.openDataPercent = parseInt((data.stats.currentEntryOpenCount / data.stats.currentEntryCount) * 100, 10);
   } else {
     data.stats.currentEntryCount = 0;
