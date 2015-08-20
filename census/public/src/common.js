@@ -35,23 +35,6 @@ OpenDataCensus.popoverBody = function(answers, details, url, actionurl, actionte
   };
 
   var out = [], not = '';
-  // out.push('<ul class="availability icons large">');
-
-  // // These match the order of the bars in the table
-  //   not = makeNot(answers.exists );
-  //   out.push('<li class="');
-  //   if (not === 'not ') {
-  //       out.push('no');
-  //   }
-  //   else if (not === 'unclear if it\'s ') {
-  //       out.push('maybe');
-  //   }
-  //   else {
-  //       out.push('yes');
-  //   }
-  //   out.push('" title="Data exists" data-toggle="tooltip"><i class="icon-file-alt"></i><span class="text">Data exists</span></li>');
-
-  // out.push('</ul>');
 
   if (answers) {
     out.push('<p>' + answers.value + '</p>');
