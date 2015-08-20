@@ -21,7 +21,7 @@
 
 <p>{{dataset.description|marked}}</p>
 
-<h3>{{gettext("Details")}}</h3>
+<h3>{{gettext("Detail")}}</h3>
 {% if dataset.id == 'website' or dataset.id == 'paia' or dataset.id == 'sda_url'%}
   <a href="{{entry.answers.value}}">{{entry.answers.value}}</a>
 {% elif dataset.id == 'information_officer_email' %}
@@ -33,7 +33,7 @@
 <h3>{{gettext("Comments")}}</h3>
 <p>{{entry.details|urlize|marked}}</p>
 
-<h3>{{gettext("Data Availability")}}</h3>
+<hr>
 <ul class="data-availability clearfix unstyled">
 
   {% for qu in questions %}
@@ -59,30 +59,12 @@
 
   {% endif %}
 
-    <li>
-      <span class="data-icon-wrapper">
-        <span class="data-icon {{ stateClass }}">
-          <i class="icon-{{ qu.icon }}"></i>
-          <span class="text">{{ stateDisplay }}</span>
-        </span>
-        {{ qu.question }}
-      </span>
-
-      <a href="javascript:;" data-toggle="popover"
-         data-content="{{ qu.description|marked| replace ('\"', '\'') }}"
-         data-placement="top" data-html="true">
-         <i class="icon-info-sign"></i>
-      </a>
-
-    </li>
   {% endif %}
   {% endfor %}
 </ul>
 <script>jQuery(function(){ jQuery('[data-toggle="popover"]').popover(); });</script>
 
-{% include '_snippets/key.html' %}
-
-<h3>{{gettext("Details")}}</h3>
+<h3>{{gettext("Further Details")}}</h3>
 <table class="table table-striped yntable">
   <tr><td>{{gettext("Reviewer")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.Reviewer %}{{entry.Reviewer.fullName()}}{% endif %}</td></tr>
   <tr><td>{{gettext("Submitters")}}</td><td>&nbsp;&nbsp;&nbsp;{% if entry.Submitter %}{{entry.Submitter.fullName()}}{% endif %}</td></tr>
