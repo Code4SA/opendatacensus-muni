@@ -76,6 +76,7 @@
         <a href="submit/" data-toggle="tooltip" class="unknown no-data count-0" title="{{gettext("Click here to add to the census!")}}">{{gettext("Add new")}}</a>
         {% endif %}
       </th>
+
       {% for dataset in datasets %}
 
       {% set entry = entries|find({'dataset': dataset.id , 'place': place.id }) %}
@@ -88,30 +89,28 @@
         {% set badgeClass = 'label-important'%}
       {% endif %}
 
-
-
-        {% if entry %}
-            {% if submissions|length %}
-              {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
-              {% set actionText = gettext("Comment") %}
+      {% if entry %}
+          {% if submissions|length %}
+            {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
+            {% set actionText = gettext("Comment") %}
+          {% else %}
+            {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
+            {% if entry %}
+              {% set actionText = gettext("Update") %}
             {% else %}
-              {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
-              {% if entry %}
-                {% set actionText = gettext("Update") %}
-              {% else %}
-                  {% set actionText = gettext("Add") %}
-              {% endif %}
-            {% endif %}
-
-        {% else %}
-            {% if submissions|length %}
-                {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
-                {% set actionText = gettext("Comment") %}
-            {% else %}
-                {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
                 {% set actionText = gettext("Add") %}
             {% endif %}
-        {% endif %}
+          {% endif %}
+
+      {% else %}
+          {% if submissions|length %}
+              {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
+              {% set actionText = gettext("Comment") %}
+          {% else %}
+              {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
+              {% set actionText = gettext("Add") %}
+          {% endif %}
+      {% endif %}
 
       <td
          class="
