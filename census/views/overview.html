@@ -10,8 +10,6 @@
     <dl>
       <dt>{{gettext("Number of places")}}</dt>
       <dd id="nc">{{ stats.placeCount }}</dd>
-      <dt>{{gettext("Number of datasets")}}</dt>
-      <dd id="nds">{{ stats.currentEntryCount }}</dd>
     </dl>
   </div>
 </div>
@@ -94,16 +92,16 @@
 
         {% if entry %}
             {% if submissions|length %}
-                      {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
-                      {% set actionText = gettext("Comment") %}
-                  {% else %}
-                    {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
-                    {% if entry %}
-                        {% set actionText = gettext("Update") %}
-                    {% else %}
-                        {% set actionText = gettext("Add") %}
-                    {% endif %}
-                {% endif %}
+              {% set actionUrl = '/census/submission/ID'|replace('ID', submissions[0].id) %}
+              {% set actionText = gettext("Comment") %}
+            {% else %}
+              {% set actionUrl = '/census/submit/?place=PL&dataset=DS'|replace('PL', place.id)|replace('DS', dataset.id) %}
+              {% if entry %}
+                {% set actionText = gettext("Update") %}
+              {% else %}
+                  {% set actionText = gettext("Add") %}
+              {% endif %}
+            {% endif %}
 
         {% else %}
             {% if submissions|length %}
