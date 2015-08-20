@@ -3,3 +3,17 @@
 table.response-summary thead tr th div a, .sexyHeader table tr th div a {
   transform: rotate(-45deg);
 }
+
+.nav-logo img {
+  height: 120px;
+  padding-top: -20px;
+}
+
+.navbar-static-top {
+  margin-bottom: 30px;
+}
+
+a.social {
+  color: #F1792D;
+}
+
