@@ -1,0 +1,5 @@
+/* Custom styles for the muni-census app */
+
+table.response-summary thead tr th div a, .sexyHeader table tr th div a {
+  transform: rotate(-45deg);
+}
