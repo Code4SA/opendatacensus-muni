@@ -53,7 +53,7 @@ $(document).ready(function($) {
             return title;
           },
           content: function(){
-            return OpenDataCensus.popoverBody(answers, details, url, actionurl, actiontext, submissions, submissionslength, year, yearclass);
+            return OpenDataCensus.popoverBody(answers, details, url, actionurl, actiontext, submissions, submissionslength, year, yearclass, datasetTitle);
           },
           template: '<div class="popover overview-popup"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
         });
@@ -82,7 +82,7 @@ $(document).ready(function($) {
     $('a[data-toggle="popover"]').popover();
 
   };
-    
+
   sexyTables();
 
   var summary,

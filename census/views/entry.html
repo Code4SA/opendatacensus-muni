@@ -22,8 +22,8 @@
 <p>{{dataset.description|marked}}</p>
 
 <h3>{{gettext("Detail")}}</h3>
-{% if dataset.id == 'website' or dataset.id == 'paia' or dataset.id == 'sda_url'%}
-  <a href="{{entry.answers.value}}">{{entry.answers.value}}</a>
+{% if dataset.id == 'website' or dataset.id == 'paia' or dataset.id == 'sda' or dataset.id == 'tender' %}
+  <a href="{{entry.answers.value}}" _blank="True">{{entry.answers.value}}</a>
 {% elif dataset.id == 'information_officer_email' %}
   <a href="mailto:{{entry.answers.value}}">{{entry.answers.value}}</a>
 {% else %}
