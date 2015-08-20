@@ -20,3 +20,7 @@ a.social {
 ul.availability.icons {
   text-align: center;
 }
+
+table.response-summary td .status ul.availability.icons.mini li {
+  width: 100%;
+}
