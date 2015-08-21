@@ -37,7 +37,12 @@ OpenDataCensus.popoverBody = function(answers, details, url, actionurl, actionte
   var out = [], not = '';
 
   if (answers) {
-    out.push('<p>' + answers.value + '</p>');
+    var v = answers.value;
+
+    if (answers.value.slice(0, 4) === 'http') {
+      v = '<a href="' + v + '" target="_blank">' + v + '</a>';
+    }
+    out.push('<p>' + v + '</p>');
   }
 
   if (year) {
