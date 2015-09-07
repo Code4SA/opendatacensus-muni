@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var _ = require('lodash');
 var path = require('path');
 var express = require('express');
