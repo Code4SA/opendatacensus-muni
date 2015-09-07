@@ -475,9 +475,14 @@ div.nav-logo a {
 }
 
 .nav-logo img {
-	margin-top: -4px;
-	margin-right: -4px;
+  margin-top: -4px;
+  margin-right: -4px;
   height: 30px;
+}
+
+.nav-logo img.c4sa-logo {
+  height: 60px;
+  margin-top: -40px;
 }
 
 .sections ul {
