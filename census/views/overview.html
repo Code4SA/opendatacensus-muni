@@ -130,7 +130,7 @@
          {% if submissions|length %}
          data-submissionslength="{{ submissions|length }}"
          {% endif %}
-         data-year="{{entry.year}}"
+         data-year="{{entry.updatedAt|dateformat('en', 'YYYY-MM-DD')}}"
          data-yearclass="{{ badgeClass }}"
          valign="middle"
          >
