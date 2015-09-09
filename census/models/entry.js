@@ -3,6 +3,26 @@
 var _ = require('lodash');
 
 
+// Scores for legally required datasets receive 25 points each to add to 100 if complying.
+//  - > Website, PAIA, SDA and Information Officer details
+//  - > Information officer details add up to 25
+// Optional items should add up to less than a single legally required item.
+// - > Phone number, Physical address, postal address public documents and tenders.
+
+var DATASET_SCORES = {
+  website: 25,
+  paia: 25,
+  sda: 25,
+  information_officer: 8,
+  information_officer_phone: 8,
+  information_officer_email: 9,
+  phone_number: 4,
+  physical_address: 4,
+  postal_address: 4,
+  public_documents: 4,
+  tender: 4
+}
+
 module.exports = function (sequelize, DataTypes) {
 
   var Entry = sequelize.define('Entry', {
@@ -81,18 +101,17 @@ module.exports = function (sequelize, DataTypes) {
     instanceMethods: {
       yCount: function(questions) {
 
-        var scores = [],
-            self = this;
+        var score = 0;
 
-        _.each(questions, function(q) {
+        if (this.answers.exists && this.answers.value) {
+          score = DATASET_SCORES[this.dataset];
+        }
 
-          if (self.answers[q.id] === true && q.score) {
-            scores.push(q.score);
-          }
-        });
+        return score;
+      },
 
-        return _.sum(scores);
-
+      possibleScore: function() {
+        return DATASET_SCORES[this.dataset];
       }
     },
     classMethods: {
