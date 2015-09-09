@@ -25,14 +25,14 @@ var translateSet = function(locale, results) {
 };
 
 
+/**
+ * Query the database for data.
+ * if options.ynQuestions, then only get yn
+ * options.models has models
+ * options.with.{MODELNAME} to control queries actually made. can be done better.
+ */
 var queryData = function(options) {
 
-  /**
-   * Query the database for data.
-   * if options.ynQuestions, then only get yn
-   * options.models has models
-   * options.with.{MODELNAME} to control queries actually made. can be done better.
-   */
   var entryParams = _.merge(siteQuery(options.domain, options.year, !options.cascade),
                             {
                               order: '"updatedAt" DESC',
@@ -71,13 +71,10 @@ var queryData = function(options) {
   return loadModels(querysets, options);
 };
 
-
+/**
+ * Process all data for stats.
+ */
 var processStats = function(data, options) {
-
-  /**
-   * Process all data for stats.
-   */
-
   data.stats = {};
 
   if (Array.isArray(data.entries)) {
@@ -123,50 +120,40 @@ var setEntryUrl = function(entry) {
       .replace('PLACE', entry.place)
       .replace('DATASET', entry.dataset);
   } else {
-    return '/census/submission/ID'.replace('ID', entry.id);
+    return '/submission/ID'.replace('ID', entry.id);
   }
 };
 
-
+/**
+ * Process the raw entries query.
+ */
 var processEntries = function(data, options) {
+  if (Array.isArray(data.entries)) {
+    data.reviewers = [];
+    data.submitters = [];
 
-  /**
-   * Process the raw entries query.
-   */
+    if (options.cascade) { data.entries = cascadeEntries(data.entries, options.year); }
+    data.pending = _.where(data.entries, {'isCurrent': false, 'reviewed': false});
+    data.rejected = _.where(data.entries, {'isCurrent': false, 'reviewed': true, 'reviewResult': false});
+    _.remove(data.entries, function(e) { return e.isCurrent === false; });
 
-  if (data.entry) {
-    // do nothing. But, still need its related pending submissions?
-  } else {
-    if (Array.isArray(data.entries)) {
-      data.reviewers = [];
-      data.submitters = [];
-      if (options.cascade) { data.entries = cascadeEntries(data.entries, options.year); }
-      _.each(data.entries, function(e) {
-        e.computedYCount = e.yCount(data.questions);
-        e.url = setEntryUrl(e);
-        data.pending = _.where(data.entries, {'isCurrent': false, 'reviewed': false});
-        data.rejected = _.where(data.entries, {'isCurrent': false, 'reviewed': true, 'reviewResult': false});
-        data.reviewers.push(e.Reviewer);
-        data.submitters.push(e.Submitter);
-      });
+    _.each(data.entries, function(e) {
+      e.computedYCount = e.yCount(data.questions);
+      e.url = setEntryUrl(e);
+      data.reviewers.push(e.Reviewer);
+      data.submitters.push(e.Submitter);
+    });
 
-      _.remove(data.entries, function(e) { return e.isCurrent === false; });
-      data.reviewers = _.uniq(data.reviewers, 'id');
-      data.submitters = _.uniq(data.submitters, 'id');
-      // TODO: sort by e.yCount desc ??? was in dataset.html ...
-    }
+    data.reviewers = _.uniq(data.reviewers, 'id');
+    data.submitters = _.uniq(data.submitters, 'id');
   }
-
   return data;
 };
 
-
+/**
+ * Process the raw places query.
+ */
 var processPlaces = function(data, options) {
-
-  /**
-   * Process the raw places query.
-   */
-
   if (data.place) {
     data.place = data.place.translated(options.locale);
   } else {
@@ -177,15 +164,13 @@ var processPlaces = function(data, options) {
       data.places = rankPlaces(_.sortByOrder(translateSet(options.locale, data.places), 'computedScore', 'desc'));
     }
   }
-
   return data;
 };
 
+/**
+ * Process the raw datasets query.
+ */
 var processDatasets = function(data, options) {
-
-  /**
-   * Process the raw datasets query.
-   */
 
   if (data.dataset) {
     data.dataset = data.dataset.translated(options.locale);
@@ -196,42 +181,32 @@ var processDatasets = function(data, options) {
   return data;
 };
 
-
+/**
+ * Process the raw questions query.
+ */
 var processQuestions = function(data, options) {
-
-  /**
-   * Process the raw questions query.
-   */
-
   data.questions = translateSet(options.locale, data.questions);
-
   return data;
 };
 
-
+/**
+ * Process the raw query data.
+ */
 var processData = function (result) {
-
-  /**
-   * Process the raw query data.
-   */
   var data = result.data,
       options = result.options;
-  if (data.entries || data.entry) { data = processEntries(data, options); }
+  if (data.entries) { data = processEntries(data, options); }
   if (data.places || data.place) { data = processPlaces(data, options); }
   if (data.datasets || data.dataset) { data = processDatasets(data, options); }
   if (data.questions) { data = processQuestions(data, options); }
   data = processStats(data, options);
-
   return data;
 };
 
-
+/**
+ * The interface to get data, all clean and ready like.
+ */
 var getData = function(options) {
-
-  /**
-   * The interface to get data, all clean and ready like.
-   */
-
   return queryData(options).then(processData);
 };
 

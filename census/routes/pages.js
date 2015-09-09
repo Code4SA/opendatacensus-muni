@@ -6,6 +6,7 @@ var mixins = require('../controllers/mixins');
 var utils = require('./utils');
 var authRoutes = require('./auth');
 var systemRoutes = require('./system');
+var censusRoutes = require('./census');
 var redirectRoutes = require('./redirects');
 
 
@@ -20,10 +21,12 @@ var pageRoutes = function(coreMiddlewares) {
 
   authRoutes(router);
   systemRoutes(router);
+  censusRoutes(router);
 
   router.get(utils.scoped('/about'), coreMixins, pages.about);
   router.get(utils.scoped('/faq'), coreMixins, pages.faq);
   router.get(utils.scoped('/contribute'), coreMixins, pages.contribute);
+  router.get(utils.scoped('/tutorial'), coreMixins, pages.tutorial);
   router.get(utils.scoped('/overview.json'), coreMixins, pages.resultJson);
   router.get(utils.scoped('/changes/:year?'), byYearMixins, pages.changes);
   router.get(utils.scoped('/place/:place/:year?'), byYearMixins, pages.place);

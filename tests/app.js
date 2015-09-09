@@ -23,7 +23,7 @@
 //   it('front page works', function(done) {
 //     request(app)
 //       .get('/')
-//       .set('Host', 'site1.dev.census.org')
+//       .set('Host', 'site1.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         checkContent(res, config.get('overview_page'));
@@ -37,7 +37,7 @@
 //   it('about page ok', function(done) {
 //     request(app)
 //       .get('/about')
-//       .set('Host', 'site1.dev.census.org')
+//       .set('Host', 'site1.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         models.Site.findById('site1').then(function(R) {
@@ -49,7 +49,7 @@
 //   it('faq page ok', function(done) {
 //     request(app)
 //       .get('/faq')
-//       .set('Host', 'site1.dev.census.org')
+//       .set('Host', 'site1.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         models.Site.findById('site1').then(function(R) {
@@ -62,7 +62,7 @@
 //   it('contribute page ok', function(done) {
 //     request(app)
 //       .get('/contribute')
-//       .set('Host', 'site2.dev.census.org')
+//       .set('Host', 'site2.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         models.Site.findById('site2').then(function(R) {
@@ -75,7 +75,7 @@
 //   it('custom content works', function(done) {
 //     request(app)
 //       .get('/')
-//       .set('Host', 'site2.dev.census.org')
+//       .set('Host', 'site2.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         checkContent(res, config.get('custom_css'));
@@ -87,63 +87,63 @@
 //       ;
 //   });
 
-//   // ========================
-//   // More complex pages
+  // ========================
+  // More complex pages
 
-//   it('place page works', function(done) {
-//     request(app)
-//       .get('/place/place21')
-//       .set('Host', 'site2.dev.census.org')
-//       .expect(200)
-//       .then(function(res) {
-//         checkContent(res, 'Place 21 /', 'Place name not present');
-//         checkContent(res, 'Dataset 21', 'Dataset list missing');
-//         done();
-//       })
-//       ;
-//   });
-//   it('dataset page works', function(done) {
-//     request(app)
-//       .get('/dataset/dataset21')
-//       .set('Host', 'site2.dev.census.org')
-//       .expect(200)
-//       .then(function(res) {
-//         checkContent(res, 'Description of Dataset 21', 'Dataset name not present');
-//         done();
-//       })
-//       ;
-//   });
-//   it('login works', function(done) {
-//     request(app)
-//       .get('/login')
-//       .set('Host', config.get('auth_subdomain') + '.dev.census.org')
-//       .expect(200)
-//       .then(function(res) {
-//         checkContent(res, 'Login with Facebook');
-//         done();
-//       });
-//       ;
-//   });
-//   it('API json works', function(done) {
-//     request(app)
-//       .get('/api/entries.json')
-//       .set('Host', 'site1.dev.census.org')
-//       .expect(200)
-//       .then(function(res) {
-//         // check a random snippet of json
-//         checkContent(res, '"details":"This is site1 entry",');
-//         done();
-//       })
-//       ;
-//   });
+  // it('place page works', function(done) {
+  //   request(app)
+  //     .get('/place/place21')
+  //     .set('Host', 'site2.dev.census.org:5000')
+  //     .expect(200)
+  //     .then(function(res) {
+  //       checkContent(res, 'Place 21 /', 'Place name not present');
+  //       checkContent(res, 'Dataset 21', 'Dataset list missing');
+  //       done();
+  //     })
+  //     ;
+  // });
+  // it('dataset page works', function(done) {
+  //   request(app)
+  //     .get('/dataset/dataset21')
+  //     .set('Host', 'site2.dev.census.org:5000')
+  //     .expect(200)
+  //     .then(function(res) {
+  //       checkContent(res, 'Description of Dataset 21', 'Dataset name not present');
+  //       done();
+  //     })
+  //     ;
+  // });
+  // it('login works', function(done) {
+  //   request(app)
+  //     .get('/login')
+  //     .set('Host', config.get('auth_subdomain') + '.dev.census.org:5000')
+  //     .expect(200)
+  //     .then(function(res) {
+  //       checkContent(res, 'Login with Facebook');
+  //       done();
+  //     });
+  //     ;
+  // });
+  // it('API json works', function(done) {
+  //   request(app)
+  //     .get('/api/entries.json')
+  //     .set('Host', 'site1.dev.census.org:5000')
+  //     .expect(200)
+  //     .then(function(res) {
+  //       // check a random snippet of json
+  //       checkContent(res, '"details":"This is site1 entry",');
+  //       done();
+  //     })
+  //     ;
+  // });
 
-//   // test redirects
-//   testRedirect('/country/', '/');
-//   testRedirect('/country/results.json', '/overview.json');
-//   testRedirect('/country/overview/gb', '/place/gb');
-//   testRedirect('/country/gb/timetables', '/entry/gb/timetables');
-//   testRedirect('/country/submit', '/submit');
-//   testRedirect('/country/review/xyz', '/submission/xyz');
+  // // test redirects
+  // testRedirect('/country/', '/');
+  // testRedirect('/country/results.json', '/overview.json');
+  // testRedirect('/country/overview/gb', '/place/gb');
+  // testRedirect('/country/gb/timetables', '/entry/gb/timetables');
+  // testRedirect('/country/submit', '/submit');
+  // testRedirect('/country/review/xyz', '/submission/xyz');
 // });
 
 // function checkContent(res, expected, errMsg) {
@@ -160,7 +160,7 @@
 //   it('redirect from ' + src + ' to ' + dest, function(done) {
 //     request(app)
 //       .get(src)
-//       .set('Host', 'site1.dev.census.org')
+//       .set('Host', 'site1.dev.census.org:5000')
 //       .expect(302)
 //       .then(function(res) {
 //         assert.equal(res.header['location'].replace('/subdomain/:domain', ''), dest);
@@ -188,8 +188,8 @@
 //     config.set('test:user', {userid: userFixtures[0].data.id});
 
 //     request(app)
-//       .get('/census/submit')
-//       .set('Host', 'site2.dev.census.org')
+//       .get('/submit')
+//       .set('Host', 'site2.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         models.Site.findById('site2').then(function(R) {
@@ -208,7 +208,7 @@
 
 //     request(app)
 //       .get(['', 'entry', entry.place, entry.dataset, entry.year].join('/'))
-//       .set('Host', 'site1.dev.census.org')
+//       .set('Host', 'site1.dev.census.org:5000')
 //       .expect(200, done)
 //       ;
 //   });
@@ -216,7 +216,7 @@
 //   it('GET recent changes page', function(done) {
 //     request(app)
 //       .get('/changes')
-//       .set('Host', 'site2.dev.census.org')
+//       .set('Host', 'site2.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         checkContent(
@@ -269,8 +269,8 @@
 //       config.set('test:user', {userid: userFixtures[0].data.id});
 
 //       request(app)
-//         .get('/census/submit/')
-//         .set('Host', 'site2.dev.census.org')
+//         .get('/submit/')
+//         .set('Host', 'site2.dev.census.org:5000')
 //         .query(prefill)
 //         .expect(200)
 //         .then(function(res) {
@@ -312,8 +312,8 @@
 //       config.set('test:user', {userid: userFixtures[0].data.id});
 
 //       request(app)
-//         .get('/census/submit/')
-//         .set('Host', 'site1.dev.census.org')
+//         .get('/submit/')
+//         .set('Host', 'site1.dev.census.org:5000')
 //         .query(prefill)
 //         .expect(200)
 //         .then(function(res) {
@@ -339,8 +339,8 @@
 //     var dataset = _.find(datasetFixtures, function(D) { return D.data.id === entry.dataset }).data;
 
 //     request(app)
-//       .get('/census/submission/' + entry.id)
-//       .set('Host', 'site2.dev.census.org')
+//       .get('/submission/' + entry.id)
+//       .set('Host', 'site2.dev.census.org:5000')
 //       .expect(200)
 //       .then(function(res) {
 //         checkContent(res, config.get('review_page'));

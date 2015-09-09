@@ -39,18 +39,6 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.JSONB,
       allowNull: false
     },
-    comments: {
-      // all comments by other users, keyed by question id
-      // eg: {"licenseurl": {"USER_ID": "This user comment"}}
-      type: DataTypes.JSONB,
-      allowNull: true
-    },
-    characteristics: {
-      // all characteristic booleans, keyed by type
-      // eg: {"high_resolution": true, "aggregate_data": false}
-      type: DataTypes.JSONB,
-      allowNull: true
-    },
     submissionNotes: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -84,6 +72,12 @@ module.exports = function (sequelize, DataTypes) {
     }
   },
   {
+    tableName: 'entry',
+    indexes: [
+      {
+        fields: ['site']
+      }
+    ],
     instanceMethods: {
       yCount: function(questions) {
 
@@ -117,8 +111,7 @@ module.exports = function (sequelize, DataTypes) {
         });
 
       }
-    },
-    tableName: 'entry'
+    }
   });
 
   return Entry;
