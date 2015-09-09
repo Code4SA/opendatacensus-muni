@@ -108,6 +108,10 @@ module.exports = function (sequelize, DataTypes) {
         }
 
         return score;
+      },
+
+      possibleScore: function() {
+        return DATASET_SCORES[this.dataset];
       }
     },
     classMethods: {

@@ -1,7 +1,7 @@
 {% macro entrysummary(dataset, place, entry, questions) -%}
   <td>
     {% if entry %}
-      {{ entry.computedYCount }}%
+      {{ entry.computedYCount }} / {{ entry.possibleScore }}
     {% else %}
       -
     {% endif %}
