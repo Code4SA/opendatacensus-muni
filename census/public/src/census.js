@@ -90,6 +90,15 @@ $(document).ready(function($) {
 
   summaryTable($table);
   sortTable($table, 'score');
+
+  $('#select-region').on("change", function() {
+      if (this.value) {
+        $('.response-summary tbody tr').not("[data-region='" + this.value + "']").hide();
+        $('.response-summary tbody').find("tr[data-region='" + this.value + "']").show();
+      } else {
+        $('.response-summary tbody tr').show();
+      }
+  });
 });
 
 function sortTable(table, sortBy) {

@@ -27,13 +27,20 @@
     {% if missingPlaceText %}
     {% include '_snippets/missing_place_button.html' %}
     {% endif %}
+    <div class="span6" id="sorting">
+    </div>
   </div>
 </div>
 
 <div class="row">
-  {% include '_snippets/year_navigation.html' %}
-    <div class="span6" id="sorting">
-    </div>
+  <form id="filter-region">
+    <select id="select-region">
+      <option value="">All provinces</option>
+      {% for region in regions %}
+      <option>{{ region }}</option>
+      {% endfor %}
+    </select>
+  </form>
 </div>
 
 <table class="response-summary table sexyTable">
@@ -67,7 +74,9 @@
        #}
        data-score="{{place.computedScore}}"
        data-place="{{place.id}}"
-       data-placename="{{place.name}}">
+       data-placename="{{place.name}}"
+       data-region="{{place.region}}"
+       class='place-row'>
       <td>{{ place.rank }}</td>
       <th class="place-name">
         {% if place %}
