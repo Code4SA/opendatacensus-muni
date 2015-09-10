@@ -159,10 +159,15 @@ var processPlaces = function(data, options) {
     data.place = data.place.translated(options.locale);
   } else {
     if (Array.isArray(data.entries)) {
+      var regionSet = [];
       _.each(data.places, function(p) {
         p.computedScore = p.score(data.entries, data.questions);
+        if (regionSet.indexOf(p.region) === -1) {
+          regionSet.push(p.region);
+        }
       });
       data.places = rankPlaces(_.sortByOrder(translateSet(options.locale, data.places), 'computedScore', 'desc'));
+      data.regions = regionSet.sort();
     }
   }
   return data;
