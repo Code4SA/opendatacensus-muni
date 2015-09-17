@@ -13,14 +13,14 @@ var DATASET_SCORES = {
   website: 25,
   paia: 25,
   sda: 25,
-  information_officer: 8,
-  information_officer_phone: 8,
-  information_officer_email: 9,
-  phone_number: 4,
-  physical_address: 4,
-  postal_address: 4,
-  public_documents: 4,
-  tender: 4
+  information_officer: 25,
+  information_officer_phone: 1,
+  information_officer_email: 1,
+  phone_number: 1,
+  physical_address: 1,
+  postal_address: 1,
+  public_documents: 1,
+  tender: 1
 }
 
 module.exports = function (sequelize, DataTypes) {
