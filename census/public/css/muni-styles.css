@@ -24,3 +24,16 @@ ul.availability.icons {
 table.response-summary td .status ul.availability.icons.mini li {
   width: 100%;
 }
+
+table.response-summary thead tr th.compliance, .sexyHeader table tr th.compliance {
+  background-color: #eae8e8;
+}
+
+.response-summary tbody td.compliance {
+  background-color: #eae8e8;
+}
+
+.table .table-striped tbody tr.compliance > td {
+  background-color: #eae8e8;
+}
+

@@ -141,6 +141,7 @@ var processEntries = function(data, options) {
       e.computedYCount = e.yCount(data.questions);
       e.possibleScore = e.possibleScore();
       e.url = setEntryUrl(e);
+      e.category = e.category(data);
       data.reviewers.push(e.Reviewer);
       data.submitters.push(e.Submitter);
     });

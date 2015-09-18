@@ -112,7 +112,17 @@ module.exports = function (sequelize, DataTypes) {
 
       possibleScore: function() {
         return DATASET_SCORES[this.dataset];
+      },
+
+      category: function(data) {
+        for (var i = 0; i < data.datasets.length; i++) {
+          if (data.datasets[i].id == this.dataset) {
+            return data.datasets[i].category;
+          }
+        }
+        return false;
       }
+
     },
     classMethods: {
       associate: function (models) {
