@@ -60,7 +60,7 @@ module.exports = function (sequelize, DataTypes) {
       translated: mixins.translated,
       score: function(entries, questions) {
         var self = this;
-        return _.sum(_.map(_.where(entries, {'place': self.id}), function(e) {return e.yCount(questions);}));
+        return _.sum(_.map(_.where(entries, {'place': self.id, 'category': 'compliance'}), function(e) {return e.yCount(questions);}));
       }
 
     }

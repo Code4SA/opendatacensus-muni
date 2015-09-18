@@ -49,7 +49,7 @@
             {% for dataset in datasets %}
             {% set entry = entries|find({'dataset': dataset.id}) %}
             {% set submissions = pending|where({'dataset': dataset.id, 'place': place.id, 'year': year}) %}
-            <tr>
+            <tr class="{{ dataset.category }}">
               <td>
                 {% if entry %}<a href="/entry/{{place.id}}/{{dataset.id}}{{ urlContext }}">{% endif %}
                   {{ dataset.name }}
