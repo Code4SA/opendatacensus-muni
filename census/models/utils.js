@@ -138,10 +138,9 @@ var processEntries = function(data, options) {
     _.remove(data.entries, function(e) { return e.isCurrent === false; });
 
     _.each(data.entries, function(e) {
-      e.computedYCount = e.yCount(data.questions);
+      e.computedYCount = e.yCount(data.questions || []);
       e.possibleScore = e.possibleScore();
       e.url = setEntryUrl(e);
-      e.category = e.category(data);
       data.reviewers.push(e.Reviewer);
       data.submitters.push(e.Submitter);
     });
