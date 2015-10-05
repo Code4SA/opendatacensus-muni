@@ -6,7 +6,6 @@ var FIELD_SPLITTER = /[\s,]+/;
 var ANONYMOUS_USER_ID = process.env.ANONYMOUS_USER_ID || '0e7c393e-71dd-4368-93a9-fcfff59f9fff';
 var marked = require('marked');
 
-
 var makeChoiceValidator = function(param) {
   return function(req) {
     req.checkBody(param, "You must make a valid choice").isChoice();
@@ -72,12 +71,7 @@ var validateQuestion = function(req, question, parentValue, validated) {
     if (parentValue === "null" || parentValue === "false") {
       // validate falsy values
       if (validator.type === "string") {
-        if (!question.id === 'format') {
-          // checking for format should be VERY temporary, we want this generic.
-          // just added to quickly solve https://github.com/okfn/opendatacensus/issues/677
-          // while waiting for this https://github.com/okfn/opendatacensus/issues/623
-          req.checkBody(question, "You must not specify this field").equals("");
-        }
+        req.checkBody(question, "You must not specify this field").equals("");
       } else {
         req.checkBody(question, "You can specify only '" + parentValue + "'")
            .equals(parentValue);
@@ -132,7 +126,6 @@ var placeMapper = function(data) {
   return result;
 };
 
-
 var datasetMapper = function(data) {
   var reviewers = [];
   if (data.reviewers) {
@@ -146,7 +139,6 @@ var datasetMapper = function(data) {
     reviewers: reviewers
   }, data);
 };
-
 
 var questionMapper = function(data) {
   var dependants = null;
@@ -162,7 +154,6 @@ var questionMapper = function(data) {
   }, data);
 };
 
-
 var normalizedAnswers = function(answers) {
   var normed = {};
   _.each(answers, function(v, k) {
@@ -177,6 +168,22 @@ var normalizedAnswers = function(answers) {
     }
   });
   return normed;
+};
+
+var ynuAnswers = function(answers) {
+  var ynu = {};
+  _.each(answers, function(v, k) {
+    if (v === null) {
+      ynu[k] = 'Unsure';
+    } else if (v === false) {
+      ynu[k] = 'No';
+    } else if (v === true) {
+      ynu[k] = 'Yes';
+    } else {
+      ynu[k] = v;
+    };
+  });
+  return ynu;
 };
 
 
@@ -195,7 +202,6 @@ var getFormQuestions = function(req, questions) {
   return _.sortByOrder(questions, "order", "asc");
 };
 
-
 var getCurrentState = function(data, req) {
   var match = _.merge(req.query, req.body),
       pending,
@@ -211,7 +217,6 @@ var getCurrentState = function(data, req) {
   }
   return { match: match, pending: pending };
 };
-
 
 var getReviewers = function(req, data) {
   var reviewers = [];
@@ -231,7 +236,6 @@ var getReviewers = function(req, data) {
   }
 };
 
-
 var canReview = function(reviewers, user) {
   if (user) {
     return (_.intersection(reviewers, user.emails).length >= 1);
@@ -239,13 +243,13 @@ var canReview = function(reviewers, user) {
   return false;
 };
 
-
 module.exports = {
   validateData: validateData,
   placeMapper: placeMapper,
   datasetMapper: datasetMapper,
   questionMapper: questionMapper,
   normalizedAnswers: normalizedAnswers,
+  ynuAnswers: ynuAnswers,
   getFormQuestions: getFormQuestions,
   getCurrentState: getCurrentState,
   getReviewers: getReviewers,
