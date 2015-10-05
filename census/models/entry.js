@@ -115,9 +115,11 @@ module.exports = function (sequelize, DataTypes) {
       },
 
       category: function(data) {
-        for (var i = 0; i < data.datasets.length; i++) {
-          if (data.datasets[i].id == this.dataset) {
-            return data.datasets[i].category;
+        if (data.datasets) {
+          for (var i = 0; i < data.datasets.length; i++) {
+            if (data.datasets[i].id == this.dataset) {
+              return data.datasets[i].category;
+            }
           }
         }
         return false;

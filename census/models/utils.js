@@ -133,15 +133,19 @@ var processEntries = function(data, options) {
     data.submitters = [];
 
     if (options.cascade) { data.entries = cascadeEntries(data.entries, options.year); }
+
+    _.each(data.entries, function(e) {
+      e.computedYCount = e.yCount(data.questions || []);
+      e.category = e.category(data);
+      e.url = setEntryUrl(e);
+    });
+
     data.pending = _.where(data.entries, {'isCurrent': false, 'reviewed': false});
     data.rejected = _.where(data.entries, {'isCurrent': false, 'reviewed': true, 'reviewResult': false});
     _.remove(data.entries, function(e) { return e.isCurrent === false; });
 
     _.each(data.entries, function(e) {
-      e.computedYCount = e.yCount(data.questions || []);
       e.possibleScore = e.possibleScore();
-      e.url = setEntryUrl(e);
-      e.category = e.category(data);
       data.reviewers.push(e.Reviewer);
       data.submitters.push(e.Submitter);
     });
