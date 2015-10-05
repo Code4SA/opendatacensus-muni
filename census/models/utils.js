@@ -136,6 +136,7 @@ var processEntries = function(data, options) {
 
     _.each(data.entries, function(e) {
       e.computedYCount = e.yCount(data.questions || []);
+      e.possibleScore = e.possibleScore();
       e.category = e.category(data);
       e.url = setEntryUrl(e);
     });
@@ -145,7 +146,6 @@ var processEntries = function(data, options) {
     _.remove(data.entries, function(e) { return e.isCurrent === false; });
 
     _.each(data.entries, function(e) {
-      e.possibleScore = e.possibleScore();
       data.reviewers.push(e.Reviewer);
       data.submitters.push(e.Submitter);
     });
